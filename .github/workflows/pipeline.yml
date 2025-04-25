@@ -1,7 +1,7 @@
 name: Deployment pipeline
 
 env:
-  SHOULD_PUSH: ${{github.event_name == 'push' && !contains(github.event.head_commit.message,'#skip') }}
+  SHOULD_DEPLOY: ${{github.event_name == 'push' && !contains(github.event.head_commit.message,'#skip') }}
 
 on:
   push:
@@ -15,16 +15,6 @@ jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-22.04
     steps:
-      - name: Debug condition
-        env:
-          IS_PUSH: ${{ github.event_name == 'push' }}
-          HAS_SKIP: ${{ contains(github.event.head_commit.message, '#skip') }}
-          FINAL_SHOULD_PUSH: ${{ env.SHOULD_PUSH }}
-        run: |
-          echo "Es push?: $IS_PUSH"
-          echo "Tiene #skip?: $HAS_SKIP"
-          echo "SHOULD_PUSH es: $FINAL_SHOULD_PUSH"
-          echo "Mensaje completo: ${{ github.event.head_commit.message }}"
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
@@ -48,11 +38,11 @@ jobs:
         run: npm run test:e2e
 
       - name: Setup Fly
-        if: ${{ env.SHOULD_PUSH }}
+        if: ${{ env.SHOULD_DEPLOY == 'true' }}
         uses: superfly/flyctl-actions/setup-flyctl@master
 
       - name: Deploy to Fly
-        if: ${{ env.SHOULD_PUSH }}
+        if: ${{ env.SHOULD_DEPLOY == 'true' }}
         run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
@@ -63,7 +53,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Bump version and push tag
-        if: ${{ env.SHOULD_PUSH }}
+        if: ${{ env.SHOULD_DEPLOY == 'true' }}
         uses: anothrNick/github-tag-action@1.71.0
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
