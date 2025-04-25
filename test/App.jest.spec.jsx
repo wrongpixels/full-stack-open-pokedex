@@ -2,12 +2,16 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import axiosMock from 'axios'
 import { act } from 'react-dom/test-utils'
+
 import '@testing-library/jest-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 import App from '../src/App'
 
 jest.mock('axios')
+
+// eslint-disable-next-line no-console
+console.log('test')
 
 describe('<App />', () => {
   it('fetches data', async () => {
