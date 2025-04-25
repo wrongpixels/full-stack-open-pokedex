@@ -23,7 +23,6 @@ jobs:
           echo "Es push?: $IS_PUSH"
           echo "Tiene #skip?: $HAS_SKIP"
           echo "Mensaje completo: ${{ github.event.head_commit.message }}"
-
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
