@@ -60,3 +60,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           DEFAULT_BUMP: patch
+  notify_discord:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Build Succeeded
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ success() && env.SHOULD_DEPLOY == 'true' }}
+        with:
+          severity: info
+          details: Nice! Build didn't break
+          webhookUrl: ${{secrets.DISCORD_WEBHOOK}}
+      - name: Build Failed Miserably!
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ failure() && env.SHOULD_DEPLOY == 'true' }}
+        with:
+          severity: error
+          details: Build Failed Miserably!
+          webhookUrl: ${{secrets.DISCORD_WEBHOOK}}
