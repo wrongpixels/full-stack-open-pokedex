@@ -51,7 +51,9 @@ jobs:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - if: ${{ env.SHOULD_DEPLOY == 'true' }}
+        uses: actions/checkout@v4
+
       - name: Bump version and push tag
         if: ${{ env.SHOULD_DEPLOY == 'true' }}
         uses: anothrNick/github-tag-action@1.71.0
