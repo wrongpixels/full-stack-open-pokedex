@@ -19,9 +19,11 @@ jobs:
         env:
           IS_PUSH: ${{ github.event_name == 'push' }}
           HAS_SKIP: ${{ contains(github.event.head_commit.message, '#skip') }}
+          FINAL_SHOULD_PUSH: ${{ env.SHOULD_PUSH }}
         run: |
           echo "Es push?: $IS_PUSH"
           echo "Tiene #skip?: $HAS_SKIP"
+          echo "SHOULD_PUSH es: $FINAL_SHOULD_PUSH"
           echo "Mensaje completo: ${{ github.event.head_commit.message }}"
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
