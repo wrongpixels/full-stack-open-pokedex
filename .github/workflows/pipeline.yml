@@ -64,29 +64,35 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Build Succeeded
-        uses: rjstone/discord-webhook-notify@v1
+        uses: stegzilla/discord-notify@v2
         if: ${{ success() && env.SHOULD_DEPLOY == 'true' }}
         with:
           severity: info
           username: The GitHub Times
-          text: A new build was **Majesticly** deployed!`
-          description: 'Info:'
-          details: |
+          title: A new build was **Majesticly** deployed!`
+          avatar_url: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+          include_image: false
+          message: |
             - **URL**: [PokéDex App](https://full-stack-open-pokedex-crimson-violet-4961.fly.dev)
             - **Author**: ${{github.event.head_commit.author.username}}
             - **Commit**: [${{github.event.head_commit.id}}](${{github.event.head_commit.URL}})
-          webhookUrl: ${{secrets.DISCORD_WEBHOOK}}
-          footer: 'Severity: GENIUS'
+
+            **Severity**: Info
+          webhook_url: ${{secrets.DISCORD_WEBHOOK}}
+          colour: #00FF00
       - name: Build Failed Miserably!
-        uses: rjstone/discord-webhook-notify@v1
+        uses: stegzilla/discord-notify@v2
         if: ${{ failure() && env.SHOULD_DEPLOY == 'true' }}
         with:
           severity: error
           username: The GitHub Times
-          text: Build **Miserably** Failed!
-          description: (Now, that was lame)
-          details: |
+          avatar_url: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+          title: Build **Miserably** Failed!
+          include_image: false
+          message: |
             - **Who to blame**: ${{github.event.head_commit.author.username}}
             - **Commit**: [${{github.event.head_commit.id}}](${{github.event.head_commit.URL}})
-          webhookUrl: ${{secrets.DISCORD_WEBHOOK}}
-          footer: 'Severity: Big L'
+
+             **Severity**: Error
+          webhook_url: ${{secrets.DISCORD_WEBHOOK}}
+          colour: #FF0000
