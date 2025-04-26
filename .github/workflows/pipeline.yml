@@ -67,9 +67,8 @@ jobs:
         uses: stegzilla/discord-notify@v2
         if: ${{ success() && env.SHOULD_DEPLOY == 'true' }}
         with:
-          severity: info
           username: The GitHub Times
-          title: A new build was **Majesticly** deployed!`
+          title: A new build was **Majesticly** deployed!
           avatar_url: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
           include_image: false
           message: |
@@ -84,7 +83,6 @@ jobs:
         uses: stegzilla/discord-notify@v2
         if: ${{ failure() && env.SHOULD_DEPLOY == 'true' }}
         with:
-          severity: error
           username: The GitHub Times
           avatar_url: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
           title: Build **Miserably** Failed!
