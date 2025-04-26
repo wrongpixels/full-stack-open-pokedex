@@ -1,8 +1,8 @@
 name: Health Checker
 
 on:
-  push:
-    branches: [main, development]
+  schedule:
+    - cron: '0 * * * *'
 jobs:
   url_health_check:
     runs-on: ubuntu-22.04
