@@ -61,7 +61,7 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
           DEFAULT_BUMP: patch
   notify_discord:
-    needs: [simple_deployment_pipeline]
+    needs: [simple_deployment_pipeline, tag_release]
     runs-on: ubuntu-22.04
     steps:
       - name: Build Succeeded
