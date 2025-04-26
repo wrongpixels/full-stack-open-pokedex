@@ -71,10 +71,11 @@ jobs:
           text: A new build was majesticly deployed
           description: Build didn't break
           details: |
-            - **URL**: [PokéDex App](https://full-stack-open-pokedex-crimson-violet-4961.fly.dev)\n
+            - **URL**: [PokéDex App](https://full-stack-open-pokedex-crimson-violet-4961.fly.dev)
             - **Author**: ${{github.event.head_commit.author.username}}
+            - **Commit**: [${{github.event.head_commit.id}}](${{github.event.head_commit.URL}})
           webhookUrl: ${{secrets.DISCORD_WEBHOOK}}
-          footer: 'Severity: GENIUS'
+          footer: 'Severity: **GENIUS**'
       - name: Build Failed Miserably!
         uses: rjstone/discord-webhook-notify@v1
         if: ${{ failure() && env.SHOULD_DEPLOY == 'true' }}
@@ -83,7 +84,7 @@ jobs:
           text: Build Miserably Failed
           description: (Now, that was lame)
           details: |
-            - **Who to blame**: ${{github.event.head_commit.author.username}}\n
+            - **Who to blame**: ${{github.event.head_commit.author.username}}
             - **Commit**: [${{github.event.head_commit.id}}](${{github.event.head_commit.URL}})
           webhookUrl: ${{secrets.DISCORD_WEBHOOK}}
-          footer: 'Severity: Big L'
+          footer: 'Severity: **Big L**'
