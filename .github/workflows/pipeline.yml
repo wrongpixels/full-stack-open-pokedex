@@ -56,7 +56,7 @@ jobs:
         if: ${{ success() && env.SHOULD_DEPLOY == 'true' }}
         with:
           username: The GitHub Times
-          title: A new build was **Majestically** deployed!
+          title: A new PokéDex build was deployed!
           avatar_url: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
           include_image: false
           message: |
@@ -74,7 +74,7 @@ jobs:
         with:
           username: The GitHub Times
           avatar_url: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
-          title: Build **Miserably** Failed!
+          title: PokéDex build **Miserably** Failed!
           include_image: false
           message: |
             - **Failed Step**: ${{ env.FAILED_STEP }}
