@@ -84,7 +84,6 @@ jobs:
             **Severity**: Error
           webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
           colour: '#FF0000'
-
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-22.04
