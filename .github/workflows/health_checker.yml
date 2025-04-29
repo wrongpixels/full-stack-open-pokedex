@@ -3,13 +3,30 @@ name: Health Checker
 on:
   schedule:
     - cron: '0 0 */2 * *'
+
 jobs:
   url_health_check:
     runs-on: ubuntu-22.04
     steps:
-      - name: Check Url
+      - name: Check PokéDex App
         uses: jtalk/url-health-check-action@v4
         with:
           url: https://full-stack-open-pokedex-crimson-violet-4961.fly.dev/
           max-attempts: 2
           retry-delay: 5s
+
+      - name: Notify Error
+        if: failure()
+        uses: stegzilla/discord-notify@v2
+        with:
+          username: The GitHub Times
+          title: Health Check Failed!
+          avatar_url: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+          include_image: false
+          webhook_url: ${{ secrets.DISCORD_WEBHOOK }}
+          colour: '#FF0000'
+          message: |
+            PokéDex App is currently offline!
+            - **Site:** [PokéDex App](https://full-stack-open-pokedex-crimson-violet-4961.fly.dev/)
+
+            **Severity:** Urgent
