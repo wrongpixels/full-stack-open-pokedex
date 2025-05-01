@@ -1,6 +1,8 @@
 # Full Stack open CI/CD
 
-This repository is used for the CI/CD module of the Full stack open course
+Dedicated repository for Exercises **11.1 to 11.19** of **Full Stack Open Part 11** (CI/CD)
 
-## Final exercises
-* Exercises 11.20 and 11.21 can be found in: https://github.com/wrongpixels/fsopen-cicd
+* **Exercises 11.20 and 11.21**: https://github.com/wrongpixels/fsopen-cicd
+  
+**Full Stack Open Course repository**: https://github.com/wrongpixels/fsopen-2025
+
